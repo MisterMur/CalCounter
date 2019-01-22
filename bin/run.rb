@@ -16,5 +16,5 @@ def get_food_from_api(food)
   # binding.pry
 end
 
-get_food_from_api('pizza')
+get_food_from_api('cookies')
 puts "HELLO WORLD"
