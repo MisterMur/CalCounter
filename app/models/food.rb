@@ -15,7 +15,7 @@ class Food < ActiveRecord::Base
   def get_nutrients(ndbno)
     nutrient_report_url = "https://api.nal.usda.gov/ndb/nutrients/?format=json&q=#{ndbno}&api_key=DEMO_KEY&nutrients=205&nutrients=204&nutrients=208&nutrients=269&fg=0100&fg=0500"
     response_nutrient = RestClient.get(nutrient_report_url)
-    nutrient_hash = JSON.parse(response_nutrient)
+    # nutrient_hash = JSON.parse(response_nutrient)
 
   end
 
