@@ -3,18 +3,6 @@ class User < ActiveRecord::Base
   has_many :meals
   has_many :foods, through: :meals
 
-  # attr_accessor :first_name,:last_name,:age,:weight,:height,:gender, :goal_weight, :goal_timeline
-
-
-  # def initialize(id=nil,first_name, last_name, age, weight, height, gender, goal_weight)
-  #   @first_name = first_name
-  #   @last_name = last_name
-  #   @age = age
-  #   @weight = weight
-  #   @height = height
-  #   @gender = gender
-  #   @goal_weight = goal_weight
-  # end
 
   def calculate_bmi
     (self.weight * 703)/(self.height)**2
