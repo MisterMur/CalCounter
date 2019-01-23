@@ -1,0 +1,10 @@
+our API key for brian.j.murillo@gmail.com is:
+
+m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP
+You can start using this key to make web service requests. Simply pass your key in the URL when making a web request. Here's an example:
+
+https://developer.nrel.gov/api/alt-fuel-stations/v1/nearest.json?api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP&location=Denver+CO
+For additional support, please contact us. When contacting us, please tell us what API you're accessing and provide the following account details so we can quickly find you:
+
+Account Email: brian.j.murillo@gmail.com
+Account ID: 95a2b659-f1ef-4988-9856-066c1adab2f2
