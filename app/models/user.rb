@@ -67,6 +67,13 @@ class User < ActiveRecord::Base
   end
 
   def remaining_daily_cal_intake
+    remaining_cals_to_consume = nil
+    if self.cal_intake_for_goal > self.total_daily_cal_intake
+      remaining_cals_to_consume = self.cal_intake_for_goal - self.total_daily_cal_intake
+    else
+      remaining_cals_to_consume = 0
+    end
+    remaining_cals_to_consume
   end
 
 end
