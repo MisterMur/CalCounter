@@ -50,7 +50,7 @@ class Food < ActiveRecord::Base
     end
 
     nut_value = cals_hash['value']
-    binding.pry
+    # binding.pry
 
   end
 

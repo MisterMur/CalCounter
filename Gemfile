@@ -5,4 +5,5 @@ gem "sinatra-activerecord"
 gem 'rest-client'
 gem "sqlite3"
 gem "pry"
+gem "tty-prompt"
 # gem "require_all"

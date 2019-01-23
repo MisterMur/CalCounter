@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :meals
   has_many :foods, through: :meals
 
-  attr_accessor :first_name,:last_name,:age,:weight,:height,:gender, :goal_weight, :goal_timeline
+  # attr_accessor :first_name,:last_name,:age,:weight,:height,:gender, :goal_weight, :goal_timeline
 
 
   # def initialize(id=nil,first_name, last_name, age, weight, height, gender, goal_weight)
@@ -79,4 +79,5 @@ class User < ActiveRecord::Base
     remaining_cals_to_consume
   end
 
+# binding.pry
 end
