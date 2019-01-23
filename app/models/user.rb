@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   def cal_intake_for_goal
     weight_adjustment = self.goal_weight - self.weight
-    #postiive if goal is to gain weight
+    #positive if goal is to gain weight
     #negative if goal is to lose weight
     weight_adjustment_per_day = weight_adjustment/self.goal_timeline
     calorie_adjustment_per_day = weight_adjustment_per_day * 3500
@@ -63,7 +63,10 @@ class User < ActiveRecord::Base
   end
 
   def total_daily_cal_intake
-
+    total_cals = 0
+    self.foods.each do |food|
+      total_cals += food.calories
+    end
   end
 
   def remaining_daily_cal_intake
