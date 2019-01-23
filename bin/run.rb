@@ -6,12 +6,21 @@ require 'tty-prompt'
 require 'pry'
 
 
+
 prompt = TTY::Prompt.new
-user_first_name = prompt.ask('What is your name?')
+user_name = prompt.ask('What is your name?')
+if User.all.find {|users| users.name == user_name}
+  puts "Welcome, back #{user_name}!"
+else
+  puts "Welcome"
+  User.create(first_name: user_name)
+end
+
+#list out a menu 
+#
 
 
-# prompt = TTY::Prompt.new
-# prompt.ask('What is your name?', default: ENV['USER'])
+
 
 binding.pry
 
