@@ -1,7 +1,7 @@
 require_relative '../config/environment'
 require 'rest-client'
 require 'json'
-
+require 'tty-prompt'
 require 'pry'
 # def get_food_from_api(food)
 #   #make the web request
@@ -52,6 +52,10 @@ egg = Food.create(name: 'eggs')
 # pizza.save(name: pizza.name, ndbno: pizza.ndbno)
 
 brian = User.new(first_name: 'Brian')
+
+# prompt = TTY::Prompt.new
+# prompt.ask('What is your name?', default: ENV['USER'])
+
 binding.pry
 
 puts "HELLO WORLD"

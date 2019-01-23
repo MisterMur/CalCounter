@@ -3,8 +3,7 @@ class User < ActiveRecord::Base
   has_many :meals
   has_many :foods, through: :meals
 
-  attr_accessor :first_name,:last_name,:age,:weight,:height,:gender, :goal_weight, :goal_timeline
-
+  # attr_accessor :first_name,:last_name,:age,:weight,:height,:gender, :goal_weight, :goal_timeline
 
   # def initialize(id=nil,first_name, last_name, age, weight, height, gender, goal_weight)
   #   @first_name = first_name
