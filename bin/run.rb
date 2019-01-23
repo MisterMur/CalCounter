@@ -50,7 +50,7 @@ def get_user_details
 end
 pizza = Food.new(name: 'pizza')
 
-
+brian = User.new(first_name: 'Brian')
 binding.pry
 
 puts "HELLO WORLD"
