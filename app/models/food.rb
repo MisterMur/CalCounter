@@ -55,6 +55,7 @@ class Food < ActiveRecord::Base
     end
     nut_value = cals_hash['value']
     add_value_to_local_variable(nut_name, nut_value)
+
     # binding.pry
 
   end

@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :meals
   has_many :foods, through: :meals
 
-  attr_accessor :first_name,:last_name,:age,:weight,:height,:gender, :goal_weight, :goal_timeline
+  # attr_accessor :first_name,:last_name,:age,:weight,:height,:gender, :goal_weight, :goal_timeline
 
 
   # def initialize(id=nil,first_name, last_name, age, weight, height, gender, goal_weight)
@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     bmr
   end
 
-  def goal_cal_intake_to_maintain_weight
+  def cal_intake_to_maintain
     #update run.rb to ask for activity level (1-5)
     # 1 - sedentary (little or no exercise)
     # 2 - lightly active (light exercise/sports 1-3 days/week)
@@ -53,18 +53,31 @@ class User < ActiveRecord::Base
     cals_to_maintain
   end
 
-  def goal_cal_intake_for_goal_weight
-    weight_to_gain_or_lose = self.goal_weight - self.weight
-    #postiive if goal is to gain weight
+  def cal_intake_for_goal
+    weight_adjustment = self.goal_weight - self.weight
+    #positive if goal is to gain weight
     #negative if goal is to lose weight
-
+    weight_adjustment_per_day = weight_adjustment/self.goal_timeline
+    calorie_adjustment_per_day = weight_adjustment_per_day * 3500
+    self.cal_intake_to_maintain + calorie_adjustment_per_day
   end
 
   def total_daily_cal_intake
-
+    total_cals = 0
+    self.foods.each do |food|
+      total_cals += food.calories
+    end
   end
 
   def remaining_daily_cal_intake
+    remaining_cals_to_consume = nil
+    if self.cal_intake_for_goal > self.total_daily_cal_intake
+      remaining_cals_to_consume = self.cal_intake_for_goal - self.total_daily_cal_intake
+    else
+      remaining_cals_to_consume = 0
+    end
+    remaining_cals_to_consume
   end
 
+# binding.pry
 end
