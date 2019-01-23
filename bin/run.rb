@@ -48,7 +48,8 @@ def get_user_details
   goal_weight = gets.chomp
   User.new(first_name, last_name, age, weight, height, gender,goal_weight)
 end
-pizza = Food.new(name: 'pizza')
+egg = Food.create(name: 'eggs')
+# pizza.save(name: pizza.name, ndbno: pizza.ndbno)
 
 brian = User.new(first_name: 'Brian')
 binding.pry
