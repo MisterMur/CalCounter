@@ -12,20 +12,6 @@ class Food < ActiveRecord::Base
   after_initialize  {get_nutrional_values('Calories')}
   after_initialize  {get_nutrional_values('Carbs')}
 
-
-
-  # def initialize(name: name)
-  #   super
-  #   @name = name
-  #   binding.pry
-  #   @ndbno = search_by_food(@name)
-  #
-  #   get_nutrional_values('Fats')
-  #   get_nutrional_values('Calories')
-  #   get_nutrional_values('Carbs')
-  #
-  # end
-
   def search_by_food(food)
     # binding.pry
     #queries usda search table api by food and returns the ndbo (food id)
@@ -73,7 +59,8 @@ class Food < ActiveRecord::Base
       self.calories = value.to_f
     when 'Carbs'
       self.carbs = value.to_f
-
+    when 'Proteins'
+      self.proteins = value.to_f
     end
   end
 
