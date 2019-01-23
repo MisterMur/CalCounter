@@ -10,6 +10,9 @@ class Food < ActiveRecord::Base
     super
     @name = name
     @ndbno = search_by_food(@name)
+    get_nutrional_values('Fats')
+    get_nutrional_values('Calories')
+    get_nutrional_values('Carbs')
      # binding.pry
      # nutrients = get_nutrients
 
@@ -28,32 +31,47 @@ class Food < ActiveRecord::Base
   end
 
   def get_nutrient_hash()
+    #returns an array of hashes,from what we request from api
+     # each hash is a different nutrient(name,value,measurement etc)
     nutrient_report_url = "https://api.nal.usda.gov/ndb/nutrients/?format=json&ndbno=#{self.ndbno}&max=1&offset=0&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP&nutrients=205&nutrients=204&nutrients=208&nutrients=269"
     response_nutrient = RestClient.get(nutrient_report_url)
     nutrient_hash = JSON.parse(response_nutrient)
-
     n = nutrient_hash['report']['foods'][0]['nutrients']
-
   end
+  #
+  # def get_calories(nutrients_arr)
+  #   cals_hash= nutrients_arr.find do |nutrient|
+  #     nutrient['nutrient_id'] == NUTRIENT_IDS['Calories']
+  #   end
+  #   self.calories = cals_hash['value']
+  # end
 
-  def get_calories(nutrients_arr)
-    cals_hash= nutrients_arr.find do |nutrient|
-      nutrient['nutrient_id'] == NUTRIENT_IDS['Calories']
-    end
-
-    self.calories = cals_hash['value']
-
-  end
-  def get_nutrional_values(nutrients_arr,nut_name,nut_value)
+  def get_nutrional_values(nut_name)
+    #itterates through the array of hashes searching for
+    #nutrient  we are looking for based on nut_name passed in
+    nutrients_arr = get_nutrient_hash()
     cals_hash= nutrients_arr.find do |nutrient|
       nutrient['nutrient_id'] == NUTRIENT_IDS[nut_name]
     end
-
     nut_value = cals_hash['value']
+    add_value_to_local_variable(nut_name, nut_value)
+
     # binding.pry
 
   end
 
+  def add_value_to_local_variable(name, value)
+    #assigns the value to the instances variables based on name
+    # if passed in 'calories' will assign value to the instance  self.calories
+    case name
+    when "Fats"
+      @fats = value
+    when 'Calories'
+      @calories = value
+    when 'Carbs'
+      @carbs = value
 
+    end
+  end
 
 end #end Food Class
