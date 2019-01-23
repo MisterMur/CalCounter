@@ -6,7 +6,7 @@ class CreateFoods < ActiveRecord::Migration[5.0]
       t.integer :calories
       t.integer :fats
       t.integer :carbs
-      t.integer :protiens
+      t.integer :proteins
     end
   end
 end

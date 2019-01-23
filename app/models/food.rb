@@ -41,20 +41,19 @@ class Food < ActiveRecord::Base
       nutrient['nutrient_id'] == NUTRIENT_IDS['Calories']
     end
 
+    self.calories = cals_hash['value']
+
+  end
+  def get_nutrional_values(nutrients_arr,nut_name,nut_value)
+    cals_hash= nutrients_arr.find do |nutrient|
+      nutrient['nutrient_id'] == NUTRIENT_IDS[nut_name]
+    end
+
     nut_value = cals_hash['value']
+    binding.pry
 
   end
 
-    # def get_nutrient_values(nutrients_arr,nut_id,nut_value)
-    #   nutrient_hash = nutrients_arr.find do |nutrient|
-    #     nutrient['nutrient_id'] == nutrient_id
-    #   end
-    #   nut_value = nutrient_hash['value']
-    #   binding.pry
-    # end
-    # binding.pry
-    # binding.pry
-    # 45207185
 
 
 end #end Food Class

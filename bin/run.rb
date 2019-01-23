@@ -48,6 +48,9 @@ def get_user_details
   goal_weight = gets.chomp
   User.new(first_name, last_name, age, weight, height, gender,goal_weight)
 end
-
+pizza = Food.new(name: 'pizza')
+pizza_arr= pizza.get_nutrient_hash
+pizza.get_calories(pizza_arr)
+pizza.get_nutrional_values(pizza_arr,'Fats',pizza.fats)
 
 puts "HELLO WORLD"
