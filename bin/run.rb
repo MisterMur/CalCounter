@@ -42,9 +42,12 @@ def get_user_details
   weight = gets.chomp
   puts "Enter height (in):"
   height = gets.chomp
-  puts "Enter gender:"
+  puts "Enter gender('M'/'F'):"
   gender = gets.chomp
-  User.new(first_name, last_name, age, weight, height, gender)
+  puts "Enter goal weight(lb): "
+  goal_weight = gets.chomp
+  User.new(first_name, last_name, age, weight, height, gender,goal_weight)
 end
+
 
 puts "HELLO WORLD"
