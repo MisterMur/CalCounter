@@ -45,6 +45,8 @@ class Cli
     menu.choice 'Add food'
     menu.choice 'View food list'
     menu.choice 'View macro intake'
+    menu.choice 'View daily calorie intake to maintain weight'
+    menu.choice 'View suggested calorie intake to meet goal'
     menu.choice 'Exit menu'
     end
   end
@@ -78,13 +80,6 @@ class Cli
     end
   end
 
-  def total_daily_cal_intake
-    total = 0
-    self.user.foods.map do |food|
-      total += food.calories
-    end
-    puts total
-  end
 
   def runner
     user = welcome
@@ -104,7 +99,11 @@ class Cli
       when 'View food list'
         list_foods
       when 'View my total daily intake'
-        total_daily_cal_intake
+        puts "#{user.total_daily_cal_intake} calories consumed today"
+      when 'View daily calorie intake to maintain weight'
+        puts "#{user.cal_intake_to_maintain} calories/day to maintain weight"
+      when 'View suggested calorie intake to meet goal'
+        puts "#{user.cal_intake_for_goal} calories/day to meet goal"
       else
         menu
       end
