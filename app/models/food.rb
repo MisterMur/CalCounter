@@ -17,13 +17,13 @@ class Food < ActiveRecord::Base
     search_url = "https://api.nal.usda.gov/ndb/search/?format=json&q=#{food}&sort=n&max=1&offset=0&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP"
     response_search = RestClient.get(search_url)
     search_hash = JSON.parse(response_search)
+
     search_ndbno = search_hash['list']['item'][0]['ndbno']
     self.ndbno = search_ndbno
   end
 
   def self.get_top_food_results(food,num_items)
     #returns num_items amount of food names
-
     puts 'in search by food'
     search_url = "https://api.nal.usda.gov/ndb/search/?format=json&q=#{food}&sort=n&max=#{num_items}&offset=0&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP"
     response_search = RestClient.get(search_url)
