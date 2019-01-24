@@ -3,12 +3,13 @@ class Food < ActiveRecord::Base
   has_many :meals
   has_many :users, through: :meals
 
-  NUTRIENT_IDS = {'Calories'=> '208' , 'Carbs' => '205','Fats' => '204' }
+  NUTRIENT_IDS = {'Calories'=> '208' , 'Carbs' => '205','Fats' => '204','Proteins' => '203' }
 
   after_initialize {search_by_food(name)}
   after_initialize  {get_nutrional_values('Fats')}
   after_initialize  {get_nutrional_values('Calories')}
   after_initialize  {get_nutrional_values('Carbs')}
+  after_initialize {get_nutrional_values('Proteins')}
 
 
   def search_by_food(food)
@@ -44,7 +45,7 @@ class Food < ActiveRecord::Base
   def get_nutrient_hash()
     #returns an array of hashes,from what we request from api
      # each hash is a different nutrient(name,value,measurement etc)
-    nutrient_report_url = "https://api.nal.usda.gov/ndb/nutrients/?format=json&ndbno=#{self.ndbno}&max=1&offset=0&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP&nutrients=205&nutrients=204&nutrients=208&nutrients=269"
+    nutrient_report_url = "https://api.nal.usda.gov/ndb/nutrients/?format=json&ndbno=#{self.ndbno}&max=1&offset=0&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP&nutrients=205&nutrients=204&nutrients=208&nutrients=203"
     response_nutrient = RestClient.get(nutrient_report_url)
     nutrient_hash = JSON.parse(response_nutrient)
     n = nutrient_hash['report']['foods'][0]#['nutrients']

@@ -63,7 +63,7 @@ class Cli
     prompt = TTY::Prompt.new
     user_response = prompt.select("Were you looking for..") do |menu|
       food_name_arr.each do |el|
-        menu.choice "#{el}"
+        menu.choice "#{el.split(', UPC')[0]}"
       end
     end
     self.user.foods.create(name: user_response)
@@ -72,7 +72,7 @@ class Cli
 
   def list_foods
     self.user.foods.map do |food|
-      puts food.name
+      puts food.name.split(', UPC')[0]
     end
   end
 
