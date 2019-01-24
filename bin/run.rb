@@ -104,7 +104,10 @@ class Cli
       when 'View food list'
         list_foods
       when 'View my total daily intake'
-        total_daily_cal_intake
+        puts @user.total_daily_cal_intake
+      when 'View macro intake'
+        puts @user.total_daily_macro_intake
+
       else
         menu
       end
