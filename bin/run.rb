@@ -45,6 +45,8 @@ class Cli
     menu.choice 'Add food'
     menu.choice 'View food list'
     menu.choice 'View macro intake'
+    menu.choice 'View daily cal intake for goal'
+    menu.choice 'View daily cal intake to maintain weight'
     menu.choice 'Exit menu'
     end
   end
@@ -105,6 +107,10 @@ class Cli
         puts @user.total_daily_cal_intake
       when 'View macro intake'
         puts @user.total_daily_macro_intake
+      when 'View daily cal intake for goal'
+        puts "#{user.cal_intake_for_goal} calories"
+      when 'View daily cal intake to maintain weight'
+        puts "#{user.cal_intake_to_maintain} calories"
       else
         menu
       end
