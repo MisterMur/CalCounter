@@ -7,11 +7,15 @@ require 'pry'
 
 class Cli
 
-  attr_reader :user
+  attr_accessor :user
 
   def welcome
     prompt = TTY::Prompt.new
-    user_name = prompt.ask('What is your name?')
+    user_name = prompt.ask("What is your name?") do |q|
+      q.required true
+      q.validate /\A\w+\Z/
+      q.modify   :capitalize
+    end
     if User.all.find {|users| users.name == user_name}
       puts "Welcome back, #{user_name}!"
       @user = User.find_by(name: user_name)
@@ -25,10 +29,11 @@ class Cli
         key(:gender).ask('Gender (M/F)?', convert: :string)
         key(:goal_weight).ask('Goal weight (lb)?', convert: :int)
         key(:goal_timeline).ask('Goal timeline (days)?', convert: :int)
+        key(:activity_level).ask('Activity level (1(sedentary)-5(very active))?', convert: :int)
       end
       new_user = User.create(result)
       new_user.update(name: user_name)
-      @user = new_user
+      self.user = new_user
     end
   end
 
@@ -63,33 +68,54 @@ class Cli
     menu.choice "#{food_name_arr[3]}"
     menu.choice "#{food_name_arr[4]}"
     end
-    @user.foods.create(name: user_response)
+    self.user.foods.create(name: user_response)
+    # f = Food.create(name:user_response)
   end
 
+  def list_foods
+    self.user.foods.map do |food|
+      puts food.name
+    end
+  end
 
-
+  def total_daily_cal_intake
+    total = 0
+    self.user.foods.map do |food|
+      total += food.calories
+    end
+    puts total
+  end
 
   def runner
     user = welcome
-    case menu
-    when 'View my bmr/bmi'
-      view_bmr_bmi
-    when 'Exit menu'
-      exit_menu
-    when 'Add food'
-      puts "Search food item"
-      food = gets.chomp
-      add_food(food,5)
-    else
-      menu
+    user_input = ""
+    not_quit = true
+    while not_quit
+      case menu
+      when 'View my bmr/bmi'
+        view_bmr_bmi
+      when 'Exit menu'
+        exit_menu
+        not_quit = false
+      when 'Add food'
+        puts "Search food item"
+        food = gets.chomp
+        add_food(food,5)
+      when 'View food list'
+        list_foods
+      when 'View my total daily intake'
+        total_daily_cal_intake
+      else
+        menu
+      end
     end
 
   end
 
 end # end of class
 
-Cli.new.runner
-
+c = Cli.new
+c.runner
 
 binding.pry
 
