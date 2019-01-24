@@ -50,10 +50,11 @@ Projects need to be approved prior to launching into them, so take some time to 
       - Present any code you would like to highlight.   
 7. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
 
----
-### Common Questions:
-- How do I turn off my SQL logger?
-```ruby
-# in config/environment.rb add this line:
-ActiveRecord::Base.logger = nil
-```
+[a relative link](./LICENSE.md)
+
+
+https://api.nal.usda.gov/ndb/nutrients/?format=json&offset=177&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP&nutrients=205&nutrients=203&nutrients=204&nutrients=208&nutrients=269&fg=0100&fg=0500
+
+https://api.nal.usda.gov/ndb/list?format=json&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP&lt=n&max=500
+
+https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=DEMO_KEY&nutrients=205&nutrients=203&nutrients=204&nutrients=208&nutrients=269&fg=0100&fg=0500
