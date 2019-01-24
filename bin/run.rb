@@ -53,8 +53,20 @@ class Cli
     puts "Goodbye"
   end
 
-  def add_food
-  end 
+  def add_food(food,num)
+    food_name_arr = Food.get_top_food_results(food,num)
+    prompt = TTY::Prompt.new
+    user_response = prompt.select("Were you looking for..") do |menu|
+    menu.choice "#{food_name_arr[0]}"
+    menu.choice "#{food_name_arr[1]}"
+    menu.choice "#{food_name_arr[2]}"
+    menu.choice "#{food_name_arr[3]}"
+    menu.choice "#{food_name_arr[4]}"
+    end
+    @user.foods.create(name: user_response)
+  end
+
+
 
 
   def runner
@@ -64,6 +76,10 @@ class Cli
       view_bmr_bmi
     when 'Exit menu'
       exit_menu
+    when 'Add food'
+      puts "Search food item"
+      food = gets.chomp
+      add_food(food,5)
     else
       menu
     end
