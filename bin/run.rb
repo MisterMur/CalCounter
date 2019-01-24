@@ -107,7 +107,6 @@ class Cli
         puts @user.total_daily_cal_intake
       when 'View macro intake'
         puts @user.total_daily_macro_intake
-
       else
         menu
       end
