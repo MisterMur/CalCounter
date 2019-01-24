@@ -64,11 +64,9 @@ class Cli
     food_name_arr = Food.get_top_food_results(food,num)
     prompt = TTY::Prompt.new
     user_response = prompt.select("Were you looking for..") do |menu|
-    menu.choice "#{food_name_arr[0]}"
-    menu.choice "#{food_name_arr[1]}"
-    menu.choice "#{food_name_arr[2]}"
-    menu.choice "#{food_name_arr[3]}"
-    menu.choice "#{food_name_arr[4]}"
+      food_name_arr.each do |food_name|
+        menu.choice "#{food_name}"
+      end
     end
     self.user.foods.create(name: user_response)
     # f = Food.create(name:user_response)

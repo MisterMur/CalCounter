@@ -10,14 +10,13 @@ class Food < ActiveRecord::Base
   after_initialize  {get_nutrional_values('Calories')}
   after_initialize  {get_nutrional_values('Carbs')}
 
+
   def search_by_food(food)
     #queries usda search table api by food and returns the ndbo (food id)
     # to be searched against the usda nutrients table api
-    puts 'in search by food'
     search_url = "https://api.nal.usda.gov/ndb/search/?format=json&q=#{food}&sort=n&max=1&offset=0&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP"
     response_search = RestClient.get(search_url)
     search_hash = JSON.parse(response_search)
-    # binding.pry
     search_ndbno = search_hash['list']['item'][0]['ndbno']
     self.ndbno = search_ndbno
   end
