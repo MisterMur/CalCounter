@@ -102,6 +102,8 @@ class Cli
         puts "#{user.cal_intake_to_maintain} calories/day to maintain weight"
       when 'View suggested calorie intake to meet goal'
         puts "#{user.cal_intake_for_goal} calories/day to meet goal"
+      when 'View macro intake'
+        puts @user.total_daily_macro_intake
       else
         menu
       end

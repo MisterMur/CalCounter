@@ -59,6 +59,19 @@ class User < ActiveRecord::Base
     total_cals
   end
 
+  def total_daily_macro_intake
+    total_fats = 0
+    total_carbs = 0
+    # total_proteins =0
+    self.foods.each do |food|
+      total_carbs += food.carbs
+      total_fats += food.fats
+      # total_proteins += food.proteins
+    end
+    {'Carbs'=> total_carbs,'Fats' => total_fats}
+    # {'Proteins'=>total_proteins,'Carbs'=> total_carbs,'Fats' => total_fats}
+  end
+
   def remaining_daily_cal_intake
     remaining_cals_to_consume = nil
     if self.cal_intake_for_goal > self.total_daily_cal_intake
