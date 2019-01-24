@@ -8,6 +8,7 @@ class CreateUser < ActiveRecord::Migration[5.0]
       t.string :gender
       t.integer :goal_weight
       t.integer :goal_timeline
+      t.integer :activity_level
     end
   end
 end
