@@ -26,17 +26,17 @@ class User < ActiveRecord::Base
     # 4 - very active (hard exercise/sports 6-7 days/week)
     # 5 - extra active (very hard exercise/sports & physical job or 2x training)
     cals_to_maintain = nil
-    case activity_level
+    case self.activity_level
     when 1
-      cals_to_maintain = bmr * 1.2
+      cals_to_maintain = self.calculate_bmr * 1.2
     when 2
-      cals_to_maintain = bmr * 1.375
+      cals_to_maintain = self.calculate_bmr * 1.375
     when 3
-      cals_to_maintain = bmr * 1.55
+      cals_to_maintain = self.calculate_bmr * 1.55
     when 4
-      cals_to_maintain = bmr * 1.725
+      cals_to_maintain = self.calculate_bmr * 1.725
     when 5
-      cals_to_maintain = bmr * 1.9
+      cals_to_maintain = self.calculate_bmr * 1.9
     end
     cals_to_maintain
   end
@@ -45,9 +45,10 @@ class User < ActiveRecord::Base
     weight_adjustment = self.goal_weight - self.weight
     #positive if goal is to gain weight
     #negative if goal is to lose weight
-    weight_adjustment_per_day = weight_adjustment/self.goal_timeline
+    weight_adjustment_per_day = (weight_adjustment/self.goal_timeline.to_f)
     calorie_adjustment_per_day = weight_adjustment_per_day * 3500
-    self.cal_intake_to_maintain + calorie_adjustment_per_day
+    calorie_adjustment_per_day + self.cal_intake_to_maintain
+    # binding.pry
   end
 
   def total_daily_cal_intake
@@ -69,7 +70,6 @@ class User < ActiveRecord::Base
     end
     {'Carbs'=> total_carbs,'Fats' => total_fats}
     # {'Proteins'=>total_proteins,'Carbs'=> total_carbs,'Fats' => total_fats}
-
   end
 
   def remaining_daily_cal_intake
