@@ -1,10 +1,8 @@
-# require 'pry'
+
 class Food < ActiveRecord::Base
   has_many :meals
   has_many :users, through: :meals
 
-  # attr_reader :name
-  # attr_accessor :name,:ndbno,:calories,:fats,:carbs,:proteins
   NUTRIENT_IDS = {'Calories'=> '208' , 'Carbs' => '205','Fats' => '204' }
 
   after_initialize {search_by_food(name)}
@@ -13,7 +11,6 @@ class Food < ActiveRecord::Base
   after_initialize  {get_nutrional_values('Carbs')}
 
   def search_by_food(food)
-    # binding.pry
     #queries usda search table api by food and returns the ndbo (food id)
     # to be searched against the usda nutrients table api
     puts 'in search by food'
@@ -21,10 +18,29 @@ class Food < ActiveRecord::Base
     response_search = RestClient.get(search_url)
     search_hash = JSON.parse(response_search)
     search_ndbno = search_hash['list']['item'][0]['ndbno']
-    # binding.pry
-
     self.ndbno = search_ndbno
   end
+
+  def self.get_top_food_results(food,num_items)
+    #returns num_items amount of food names
+
+    puts 'in search by food'
+    search_url = "https://api.nal.usda.gov/ndb/search/?format=json&q=#{food}&sort=n&max=#{num_items}&offset=0&api_key=m7tJlPDeol0BRpU94StlarX7J2owCr33rxxJS8mP"
+    response_search = RestClient.get(search_url)
+    search_hash = JSON.parse(response_search)
+    search_hash['list']['item'].map do |item|
+      item['name']
+    end
+
+  end
+
+  def select_food(ndbno)
+    food = food_arr.find do |food_item|
+      food_item['ndbno'] == ndbno
+    end
+    food
+  end
+
 
   def get_nutrient_hash()
     #returns an array of hashes,from what we request from api
@@ -45,9 +61,6 @@ class Food < ActiveRecord::Base
     end
     nut_value = cals_hash['value']
     add_value_to_local_variable(nut_name, nut_value)
-
-    # binding.pry
-
   end
 
   def add_value_to_local_variable(name, value)
