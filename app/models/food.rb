@@ -19,7 +19,9 @@ class Food < ActiveRecord::Base
     search_hash = JSON.parse(response_search)
 
     search_ndbno = search_hash['list']['item'][0]['ndbno']
-    self.ndbno = search_ndbno
+    self.ndbno = search_ndbno # this is correct value but notassigning
+    # binding.pry
+
   end
 
   def self.get_top_food_results(food,num_items)
