@@ -7,4 +7,4 @@ gem "sqlite3"
 gem 'tty-prompt'
 gem "pry"
 gem "tty-prompt"
-# gem "require_all"
+gem "require_all"
